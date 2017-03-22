@@ -514,6 +514,7 @@
 				FE548F971E79F11400AA3326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FE548F981E79F11400AA3326 /* Build configuration list for PBXNativeTarget "DrawCircleTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +523,7 @@
 				FE548F9A1E79F11400AA3326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FE548F9B1E79F11400AA3326 /* Build configuration list for PBXNativeTarget "DrawCircleUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +532,7 @@
 				FE548F9D1E79F11400AA3326 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
