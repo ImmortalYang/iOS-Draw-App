@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE374A971E8F1A1600D52B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE374A961E8F1A1600D52B9A /* Assets.xcassets */; };
 		FE548F711E79F11400AA3326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F701E79F11400AA3326 /* AppDelegate.swift */; };
 		FE548F731E79F11400AA3326 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F721E79F11400AA3326 /* ViewController.swift */; };
 		FE548F761E79F11400AA3326 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE548F741E79F11400AA3326 /* Main.storyboard */; };
-		FE548F781E79F11400AA3326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE548F771E79F11400AA3326 /* Assets.xcassets */; };
 		FE548F7B1E79F11400AA3326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE548F791E79F11400AA3326 /* LaunchScreen.storyboard */; };
 		FE548F861E79F11400AA3326 /* DrawCircleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F851E79F11400AA3326 /* DrawCircleTests.swift */; };
 		FE548F911E79F11400AA3326 /* DrawCircleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F901E79F11400AA3326 /* DrawCircleUITests.swift */; };
@@ -34,11 +34,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE374A961E8F1A1600D52B9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE548F6D1E79F11400AA3326 /* DrawCircle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawCircle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE548F701E79F11400AA3326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE548F721E79F11400AA3326 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FE548F751E79F11400AA3326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FE548F771E79F11400AA3326 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE548F7A1E79F11400AA3326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE548F7C1E79F11400AA3326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE548F811E79F11400AA3326 /* DrawCircleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawCircleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,10 +97,10 @@
 		FE548F6F1E79F11400AA3326 /* DrawCircle */ = {
 			isa = PBXGroup;
 			children = (
+				FE374A961E8F1A1600D52B9A /* Assets.xcassets */,
 				FE548F701E79F11400AA3326 /* AppDelegate.swift */,
 				FE548F721E79F11400AA3326 /* ViewController.swift */,
 				FE548F741E79F11400AA3326 /* Main.storyboard */,
-				FE548F771E79F11400AA3326 /* Assets.xcassets */,
 				FE548F791E79F11400AA3326 /* LaunchScreen.storyboard */,
 				FE548F7C1E79F11400AA3326 /* Info.plist */,
 			);
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE548F7B1E79F11400AA3326 /* LaunchScreen.storyboard in Resources */,
-				FE548F781E79F11400AA3326 /* Assets.xcassets in Resources */,
+				FE374A971E8F1A1600D52B9A /* Assets.xcassets in Resources */,
 				FE548F761E79F11400AA3326 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

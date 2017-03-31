@@ -69,6 +69,7 @@ class ViewController: UIViewController {
             else{
                 btn.layer.borderWidth = 0.0
             }
+            
         }
         
         self.view.layer.addSublayer(userDrawLayer)
@@ -185,6 +186,19 @@ class ViewController: UIViewController {
     
     //User touch the delete button
     @IBAction func deleteBtnTapped(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Warning", message: "All Drawings & Stickers will be deleted", preferredStyle: .alert)
+        
+        let deleteAction = UIAlertAction(title: "Delete All", style: .default, handler: deleteAllDrawings)
+        alertController.addAction(deleteAction)
+        
+        let cancellAction = UIAlertAction(title: "Cancell", style: .default, handler: nil)
+        alertController.addAction(cancellAction)
+        
+        present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    private func deleteAllDrawings(action: UIAlertAction){
         userDrawLayer.removeFromSuperlayer()
         userDrawLayer = CALayer()
         self.view.layer.addSublayer(userDrawLayer)
