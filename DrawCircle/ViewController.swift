@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     //MARK: Properties
     let defaultColor: CGColor = UIColor.blue.cgColor //default fill color
     let defaultStrokeColor = UIColor.black.cgColor
-    let defaultDrawShape: DrawShape = .Eclipse
+    let defaultDrawShape: DrawShape = .Ellipse
     let defaultLineWidth: CGFloat = 1.0
 
     var startPoint : CGPoint = CGPointFromString("0")
@@ -22,6 +22,11 @@ class ViewController: UIViewController {
     var shape: DrawShape?
     var lineWidth: CGFloat?
     
+    @IBOutlet weak var btnEllipse: UIButton!
+    @IBOutlet weak var btnRect: UIButton!
+    @IBOutlet weak var btnLine: UIButton!
+    @IBOutlet weak var btnFreeStyle: UIButton!
+    
     //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,10 @@ class ViewController: UIViewController {
         strokeColor = defaultStrokeColor
         shape = defaultDrawShape
         lineWidth = defaultLineWidth
+        btnEllipse.setImage(#imageLiteral(resourceName: "Ellipse"), for: .normal)
+        btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
+        btnLine.setImage(#imageLiteral(resourceName: "Line"), for: .normal)
+        btnFreeStyle.setImage(#imageLiteral(resourceName: "FreeStyle"), for: .normal)
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,15 +54,18 @@ class ViewController: UIViewController {
     @IBAction func shapeChange(_ sender: UIButton) {
         let tag = sender.tag
         switch tag{
-        case DrawShape.Eclipse.rawValue:
-            shape = DrawShape.Eclipse
+        case DrawShape.Ellipse.rawValue:
+            shape = DrawShape.Ellipse
         case DrawShape.Rectangle.rawValue:
             shape = .Rectangle
         case DrawShape.Line.rawValue:
             shape = .Line
+        case DrawShape.FreeStyle.rawValue:
+            shape = .FreeStyle
         default:
-            shape = .Eclipse
+            shape = .Ellipse
         }
+        sender.tintColor = UIColor.blue
     }
     
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer)
@@ -74,7 +86,7 @@ class ViewController: UIViewController {
             let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
             
             switch shape! {
-            case DrawShape.Eclipse:
+            case DrawShape.Ellipse:
                 layer?.path = (UIBezierPath(ovalIn:shapeInRect)).cgPath
             case DrawShape.Rectangle:
                 layer?.path =
@@ -87,6 +99,8 @@ class ViewController: UIViewController {
                 layer?.path = linePath.cgPath
                 layer?.strokeColor = color
                 layer?.lineWidth = lineWidth ?? defaultLineWidth
+            case DrawShape.FreeStyle:
+                break;
             }
             
         }
@@ -96,9 +110,10 @@ class ViewController: UIViewController {
 
 enum DrawShape: Int
 {
-    case Eclipse = 0
+    case Ellipse = 0
     case Rectangle
     case Line
+    case FreeStyle
 }
 
 

@@ -91,33 +91,37 @@
                                     <constraint firstItem="zvR-qN-Bdt" firstAttribute="width" secondItem="FYZ-XN-eP1" secondAttribute="width" id="xhg-zu-x9M"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="doc-AW-8Cl">
-                                <rect key="frame" x="586" y="247" width="69" height="120"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="doc-AW-8Cl">
+                                <rect key="frame" x="625" y="232" width="30" height="135"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huz-OD-dka">
-                                        <rect key="frame" x="0.0" y="0.0" width="69" height="30"/>
-                                        <state key="normal" title="Eclipse"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kPA-BK-djb"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnT-si-Enq">
-                                        <rect key="frame" x="0.0" y="30" width="69" height="30"/>
-                                        <state key="normal" title="Rectangle"/>
+                                        <rect key="frame" x="0.0" y="35" width="30" height="30"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FJ4-hS-UKg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-YI-K8g">
-                                        <rect key="frame" x="0.0" y="60" width="69" height="30"/>
-                                        <state key="normal" title="Line"/>
+                                        <rect key="frame" x="0.0" y="70" width="30" height="30"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z1I-lH-A3T"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bM6-76-OxB">
-                                        <rect key="frame" x="0.0" y="90" width="69" height="30"/>
-                                        <state key="normal" title="Free"/>
+                                        <rect key="frame" x="0.0" y="105" width="30" height="30"/>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -135,6 +139,12 @@
                             <outletCollection property="gestureRecognizers" destination="y8u-9Z-ogf" appends="YES" id="OHt-LI-keM"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="btnEllipse" destination="huz-OD-dka" id="ljI-Ei-n7g"/>
+                        <outlet property="btnFreeStyle" destination="bM6-76-OxB" id="lNp-zc-0S9"/>
+                        <outlet property="btnLine" destination="wk4-YI-K8g" id="XSw-X2-EwI"/>
+                        <outlet property="btnRect" destination="WnT-si-Enq" id="DHb-Q8-PyI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="y8u-9Z-ogf">
