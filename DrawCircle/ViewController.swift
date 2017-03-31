@@ -22,13 +22,16 @@ class ViewController: UIViewController {
     var shape: DrawShape?
     var lineWidth: CGFloat?
     
+    var userDrawLayer = CALayer()
+    
     @IBOutlet weak var btnEllipse: UIButton!
     @IBOutlet weak var btnRect: UIButton!
     @IBOutlet weak var btnLine: UIButton!
     @IBOutlet weak var btnFreeStyle: UIButton!
+    @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var stackShapes: UIStackView!
     @IBOutlet weak var stackColorPicks: UIStackView!
-    
+    @IBOutlet weak var stackFuncBtns: UIStackView!
     //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +40,7 @@ class ViewController: UIViewController {
         strokeColor = defaultStrokeColor
         shape = defaultDrawShape
         lineWidth = defaultLineWidth
+        
         btnEllipse.setImage(#imageLiteral(resourceName: "Ellipse"), for: .normal)
         btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
         btnLine.setImage(#imageLiteral(resourceName: "Line"), for: .normal)
@@ -64,6 +68,8 @@ class ViewController: UIViewController {
                 btn.layer.borderWidth = 0.0
             }
         }
+        
+        self.view.layer.addSublayer(userDrawLayer)
         
     }
 
@@ -125,7 +131,8 @@ class ViewController: UIViewController {
             layer?.opacity = 0.5
             layer?.strokeColor = defaultStrokeColor
             layer?.lineWidth = defaultLineWidth
-            self.view.layer.addSublayer(layer!)
+            //self.view.layer.addSublayer(layer!)
+            userDrawLayer.addSublayer(layer!)
         }
         else if sender.state == .changed
         {
@@ -148,19 +155,30 @@ class ViewController: UIViewController {
                 layer?.lineWidth = lineWidth ?? defaultLineWidth
             case DrawShape.FreeStyle:
                 break;
-            }
-            
-        }
+            }//end switch
+            //After drawing, bring UI buttons to the top layer
+            //so that user input won't block buttons
+            self.view.bringSubview(toFront: stackColorPicks)
+            self.view.bringSubview(toFront: stackFuncBtns)
+        }//end if...else
+    }//end func handlePan
+    
+    //User touch the delete button
+    @IBAction func deleteBtnTapped(_ sender: UIButton) {
+        userDrawLayer.removeFromSuperlayer()
+        userDrawLayer = CALayer()
+        self.view.layer.addSublayer(userDrawLayer)
     }
-        
-}
+    
+}//end class ViewController
 
+//Possible shapes that users can choose from
 enum DrawShape: Int
 {
     case Ellipse = 0
     case Rectangle
-    case Line
-    case FreeStyle
+    case Line      //straight line
+    case FreeStyle //exact path of user's touch
 }
 
 
