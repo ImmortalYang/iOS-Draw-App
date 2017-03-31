@@ -9,18 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    var startPoint : CGPoint = CGPointFromString("0")
-    var layer : CAShapeLayer?
-    let defaultColor: CGColor = UIColor.blue.cgColor
+    //MARK: Properties
+    let defaultColor: CGColor = UIColor.blue.cgColor //default fill color
     let defaultStrokeColor = UIColor.black.cgColor
     let defaultDrawShape: DrawShape = .Eclipse
     let defaultLineWidth: CGFloat = 1.0
+
+    var startPoint : CGPoint = CGPointFromString("0")
+    var layer : CAShapeLayer?
     var color: CGColor?
     var strokeColor: CGColor?
     var shape: DrawShape?
     var lineWidth: CGFloat?
     
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
