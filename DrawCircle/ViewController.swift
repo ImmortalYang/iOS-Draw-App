@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     let defaultColor: CGColor = UIColor.blue.cgColor //default fill color
     let defaultStrokeColor = UIColor.black.cgColor
     let defaultDrawShape: DrawShape = .Ellipse
-    let defaultLineWidth: CGFloat = 1.0
+    let defaultLineWidth: CGFloat = 3.0
 
     var startPoint : CGPoint = CGPointFromString("0")
     var layer : CAShapeLayer?
@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnRect: UIButton!
     @IBOutlet weak var btnLine: UIButton!
     @IBOutlet weak var btnFreeStyle: UIButton!
+    @IBOutlet weak var stackShapes: UIStackView!
+    @IBOutlet weak var stackColorPicks: UIStackView!
     
     //MARK: Methods
     override func viewDidLoad() {
@@ -39,6 +41,30 @@ class ViewController: UIViewController {
         btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
         btnLine.setImage(#imageLiteral(resourceName: "Line"), for: .normal)
         btnFreeStyle.setImage(#imageLiteral(resourceName: "FreeStyle"), for: .normal)
+        btnEllipse.tintColor = UIColor(cgColor: defaultColor)
+        
+        //Set border color and width for shape-picker buttons
+        for (index, btn) in stackShapes.subviews.enumerated(){
+            btn.layer.borderColor = UIColor.black.cgColor
+            if index == 0{
+                btn.layer.borderWidth = defaultLineWidth
+            }
+            else{
+                btn.layer.borderWidth = 0.0
+            }
+        }
+        
+        //Set border color and width for color-picker buttons
+        for (index, btn) in stackColorPicks.subviews.enumerated(){
+            btn.layer.borderColor = UIColor.black.cgColor
+            if index == 0{
+                btn.layer.borderWidth = defaultLineWidth
+            }
+            else{
+                btn.layer.borderWidth = 0.0
+            }
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +74,20 @@ class ViewController: UIViewController {
 
     @IBAction func colorChange(_ sender: UIButton) {
         color = sender.backgroundColor?.cgColor
+        //Clear border width
+        for btn in stackColorPicks.subviews{
+            btn.layer.borderWidth = 0
+        }
+        //Set border width for current selected button
+        sender.layer.borderWidth = defaultLineWidth
+        
+        //Change the tint color of selected shape-pick button
+        for btn in stackShapes.subviews{
+            if btn.layer.borderWidth > 0{
+                btn.tintColor = UIColor(cgColor: color!)
+                break
+            }
+        }
     }
     
     
@@ -65,7 +105,14 @@ class ViewController: UIViewController {
         default:
             shape = .Ellipse
         }
-        sender.tintColor = UIColor.blue
+        //Clear tint color and border width
+        for btn in stackShapes.subviews{
+            btn.tintColor = UIColor.black
+            btn.layer.borderWidth = 0.0
+        }
+        //Set tint color and border for selected shape button
+        sender.tintColor = UIColor(cgColor: color!)
+        sender.layer.borderWidth = defaultLineWidth
     }
     
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer)

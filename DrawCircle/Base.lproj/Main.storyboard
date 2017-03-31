@@ -118,10 +118,13 @@
                                             <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z1I-lH-A3T"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bM6-76-OxB">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QU-Cy-qUs">
                                         <rect key="frame" x="0.0" y="105" width="30" height="30"/>
-                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jyl-r5-per"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -141,9 +144,11 @@
                     </view>
                     <connections>
                         <outlet property="btnEllipse" destination="huz-OD-dka" id="ljI-Ei-n7g"/>
-                        <outlet property="btnFreeStyle" destination="bM6-76-OxB" id="lNp-zc-0S9"/>
+                        <outlet property="btnFreeStyle" destination="6QU-Cy-qUs" id="8ng-Tc-czE"/>
                         <outlet property="btnLine" destination="wk4-YI-K8g" id="XSw-X2-EwI"/>
                         <outlet property="btnRect" destination="WnT-si-Enq" id="DHb-Q8-PyI"/>
+                        <outlet property="stackColorPicks" destination="GvQ-a9-eti" id="sPi-zx-dgL"/>
+                        <outlet property="stackShapes" destination="doc-AW-8Cl" id="TRv-qE-9ZG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
