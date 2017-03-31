@@ -128,7 +128,7 @@
                                                     <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z1I-lH-A3T"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QU-Cy-qUs">
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QU-Cy-qUs">
                                                 <rect key="frame" x="0.0" y="105" width="30" height="30"/>
                                                 <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

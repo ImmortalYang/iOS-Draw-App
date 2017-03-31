@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     var lineWidth: CGFloat?
     
     var userDrawLayer = CALayer()
+    var userIsDraggingInFreeStyleMode = false
+    var freeStyleLinePath = UIBezierPath()
     
     @IBOutlet weak var btnEllipse: UIButton!
     @IBOutlet weak var btnRect: UIButton!
@@ -129,7 +131,7 @@ class ViewController: UIViewController {
             layer = CAShapeLayer()
             layer?.fillColor = color
             layer?.opacity = 0.5
-            layer?.strokeColor = defaultStrokeColor
+            layer?.strokeColor = color
             layer?.lineWidth = defaultLineWidth
             //self.view.layer.addSublayer(layer!)
             userDrawLayer.addSublayer(layer!)
@@ -151,15 +153,33 @@ class ViewController: UIViewController {
                 linePath.move(to: startPoint)
                 linePath.addLine(to: endPoint)
                 layer?.path = linePath.cgPath
-                layer?.strokeColor = color
-                layer?.lineWidth = lineWidth ?? defaultLineWidth
+                
             case DrawShape.FreeStyle:
-                break;
+                let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
+                if !userIsDraggingInFreeStyleMode{
+                    //Add the first line in free style path
+                    freeStyleLinePath = UIBezierPath()
+                    freeStyleLinePath.move(to: startPoint)
+                    freeStyleLinePath.addLine(to: endPoint)
+                    userIsDraggingInFreeStyleMode = true
+                    
+                }
+                else{
+                    freeStyleLinePath.addLine(to: endPoint)
+                }
+                //The end point of current segment of line is the start point of next segment of line
+                freeStyleLinePath.move(to: endPoint)
+                layer?.path = freeStyleLinePath.cgPath
+                
             }//end switch
             //After drawing, bring UI buttons to the top layer
             //so that user input won't block buttons
             self.view.bringSubview(toFront: stackColorPicks)
             self.view.bringSubview(toFront: stackFuncBtns)
+        }
+        else if sender.state == .ended{
+            userIsDraggingInFreeStyleMode = false
+            
         }//end if...else
     }//end func handlePan
     
