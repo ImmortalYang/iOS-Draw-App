@@ -148,43 +148,56 @@ class ViewController: UIViewController {
         else if sender.state == .changed
         {
             let translation = sender .translation(in: sender.view)
-            let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
-            let sideLength = translation.x > translation.y ? translation.y : translation.x
-            let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
             
             switch shape! {
-            case DrawShape.Ellipse:
-                layer?.path = (UIBezierPath(ovalIn:shapeInRect)).cgPath
-            case DrawShape.Rectangle:
-                layer?.path =
-                    (UIBezierPath(rect: shapeInRect)).cgPath
-            case DrawShape.Circle:
-                layer?.path = (UIBezierPath(ovalIn: shapeInSquare)).cgPath
-            case DrawShape.Square:
-                layer?.path = (UIBezierPath(rect: shapeInSquare)).cgPath
-            case DrawShape.Line:
-                let linePath = UIBezierPath()
+            case DrawShape.Ellipse, DrawShape.Rectangle:
+                //The CGRect in which ellipses and rectangles will be drawn
+                let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
+                switch shape! {
+                case DrawShape.Ellipse:
+                    layer?.path = (UIBezierPath(ovalIn:shapeInRect)).cgPath
+                default:  //DrawShape.Rectangle
+                    layer?.path =
+                        (UIBezierPath(rect: shapeInRect)).cgPath
+                }
+            
+            case DrawShape.Circle, DrawShape.Square:
+                //The CGRect in which Circles and Squares will be drawn. The side length of which is the shortest side of the above shapeInRect CGRect in the previous case.
+                let x = translation.x, y = translation.y
+                let sideLength = x > y ? y : x
+                let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
+                switch shape! {
+                case DrawShape.Circle:
+                    layer?.path = (UIBezierPath(ovalIn: shapeInSquare)).cgPath
+                default: //DrawShape.Square
+                    layer?.path = (UIBezierPath(rect: shapeInSquare)).cgPath
+                }
+
+            case DrawShape.Line, DrawShape.FreeStyle:
                 let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
-                linePath.move(to: startPoint)
-                linePath.addLine(to: endPoint)
-                layer?.path = linePath.cgPath
-                
-            case DrawShape.FreeStyle:
-                let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
-                if !userIsDraggingInFreeStyleMode{
-                    //Add the first line in free style path
-                    freeStyleLinePath = UIBezierPath()
-                    freeStyleLinePath.move(to: startPoint)
-                    freeStyleLinePath.addLine(to: endPoint)
-                    userIsDraggingInFreeStyleMode = true
+                switch shape! {
+                case DrawShape.Line:
+                    let linePath = UIBezierPath()
+                    linePath.move(to: startPoint)
+                    linePath.addLine(to: endPoint)
+                    layer?.path = linePath.cgPath
                     
-                }
-                else{
-                    freeStyleLinePath.addLine(to: endPoint)
-                }
-                //The end point of current segment of line is the start point of next segment of line
-                freeStyleLinePath.move(to: endPoint)
-                layer?.path = freeStyleLinePath.cgPath
+                default: //DrawShape.FreeStyle
+                    if !userIsDraggingInFreeStyleMode{
+                        //Add the first line in free style path
+                        freeStyleLinePath = UIBezierPath()
+                        freeStyleLinePath.move(to: startPoint)
+                        freeStyleLinePath.addLine(to: endPoint)
+                        userIsDraggingInFreeStyleMode = true
+                    }
+                    else{
+                        freeStyleLinePath.addLine(to: endPoint)
+                    }
+                    //The end point of current segment of line is the start point of next segment of line
+                    freeStyleLinePath.move(to: endPoint)
+                    layer?.path = freeStyleLinePath.cgPath
+                    //end case DrawShape.FreeStyle
+                }//end inner switch
             
             }//end switch
             //After drawing, bring UI buttons to the top layer
