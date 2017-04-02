@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var stackShapes: UIStackView!
     @IBOutlet weak var stackColorPicks: UIStackView!
     @IBOutlet weak var stackFuncBtns: UIStackView!
+    
     //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,23 +106,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func shapeChange(_ sender: UIButton) {
-        let tag = sender.tag
-        switch tag{
-        case DrawShape.Ellipse.rawValue:
-            shape = DrawShape.Ellipse
-        case DrawShape.Rectangle.rawValue:
-            shape = .Rectangle
-        case DrawShape.Circle.rawValue:
-            shape = .Circle
-        case DrawShape.Square.rawValue:
-            shape = .Square
-        case DrawShape.Line.rawValue:
-            shape = .Line
-        case DrawShape.FreeStyle.rawValue:
-            shape = .FreeStyle
-        default:
-            shape = .Ellipse
-        }
+        //Tag value of each shape button is designed to be correspond to rawValue of each Shape in the enum
+        shape = DrawShape(rawValue: sender.tag)
         //Clear tint color and border width
         for btn in stackShapes.subviews{
             btn.tintColor = UIColor.black
@@ -141,7 +127,7 @@ class ViewController: UIViewController {
             layer?.fillColor = color
             layer?.opacity = 0.5
             layer?.strokeColor = color
-            layer?.lineWidth = defaultLineWidth
+            layer?.lineWidth = lineWidth!
             //self.view.layer.addSublayer(layer!)
             userDrawLayer.addSublayer(layer!)
         }
@@ -163,8 +149,8 @@ class ViewController: UIViewController {
             
             case DrawShape.Circle, DrawShape.Square:
                 //The CGRect in which Circles and Squares will be drawn. The side length of which is the shortest side of the above shapeInRect CGRect in the previous case.
-                let x = translation.x, y = translation.y
-                let sideLength = x > y ? y : x
+                let x = abs(translation.x), y = abs(translation.y)
+                let sideLength = x > y ? translation.y : translation.x
                 let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
                 switch shape! {
                 case DrawShape.Circle:
@@ -204,6 +190,7 @@ class ViewController: UIViewController {
             //so that user input won't block buttons
             self.view.bringSubview(toFront: stackColorPicks)
             self.view.bringSubview(toFront: stackFuncBtns)
+            self.view.bringSubview(toFront: stackShapes)
         }
         else if sender.state == .ended{
             userIsDraggingInFreeStyleMode = false
@@ -223,6 +210,10 @@ class ViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
         
+    }
+    
+    @IBAction func lineWidthDidChange(_ sender: UISlider) {
+        lineWidth = CGFloat(sender.value)
     }
     
     private func deleteAllDrawings(action: UIAlertAction){
