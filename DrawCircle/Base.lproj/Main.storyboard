@@ -92,7 +92,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xe2-4B-K48">
-                                <rect key="frame" x="637" y="217" width="30" height="158"/>
+                                <rect key="frame" x="637" y="147" width="30" height="228"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzb-3I-Zx0">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="18"/>
@@ -103,7 +103,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="doc-AW-8Cl">
-                                        <rect key="frame" x="0.0" y="23" width="30" height="135"/>
+                                        <rect key="frame" x="0.0" y="23" width="30" height="205"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huz-OD-dka">
                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -121,16 +121,32 @@
                                                     <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FJ4-hS-UKg"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-YI-K8g">
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzx-TV-wZj">
                                                 <rect key="frame" x="0.0" y="70" width="30" height="30"/>
+                                                <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NMg-xu-Kky"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5ad-WI-qmQ">
+                                                <rect key="frame" x="0.0" y="105" width="30" height="30"/>
+                                                <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pnV-Z6-RiW"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wk4-YI-K8g">
+                                                <rect key="frame" x="0.0" y="140" width="30" height="30"/>
                                                 <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <action selector="shapeChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z1I-lH-A3T"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QU-Cy-qUs">
-                                                <rect key="frame" x="0.0" y="105" width="30" height="30"/>
+                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QU-Cy-qUs">
+                                                <rect key="frame" x="0.0" y="175" width="30" height="30"/>
                                                 <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <connections>
@@ -156,11 +172,13 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="btnCircle" destination="Kzx-TV-wZj" id="w2f-cy-GNj"/>
                         <outlet property="btnDelete" destination="Vzb-3I-Zx0" id="TLG-Uv-A1G"/>
                         <outlet property="btnEllipse" destination="huz-OD-dka" id="ljI-Ei-n7g"/>
                         <outlet property="btnFreeStyle" destination="6QU-Cy-qUs" id="8ng-Tc-czE"/>
                         <outlet property="btnLine" destination="wk4-YI-K8g" id="XSw-X2-EwI"/>
                         <outlet property="btnRect" destination="WnT-si-Enq" id="DHb-Q8-PyI"/>
+                        <outlet property="btnSquare" destination="5ad-WI-qmQ" id="X3l-Ba-ZJn"/>
                         <outlet property="stackColorPicks" destination="GvQ-a9-eti" id="sPi-zx-dgL"/>
                         <outlet property="stackFuncBtns" destination="Xe2-4B-K48" id="Zk7-Iu-8vj"/>
                         <outlet property="stackShapes" destination="doc-AW-8Cl" id="TRv-qE-9ZG"/>

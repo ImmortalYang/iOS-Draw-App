@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var btnEllipse: UIButton!
     @IBOutlet weak var btnRect: UIButton!
+    @IBOutlet weak var btnCircle: UIButton!
+    @IBOutlet weak var btnSquare: UIButton!
     @IBOutlet weak var btnLine: UIButton!
     @IBOutlet weak var btnFreeStyle: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
@@ -46,6 +48,8 @@ class ViewController: UIViewController {
         btnEllipse.setImage(#imageLiteral(resourceName: "Ellipse"), for: .normal)
         btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
         btnLine.setImage(#imageLiteral(resourceName: "Line"), for: .normal)
+        btnCircle.setImage(#imageLiteral(resourceName: "Circle"), for: .normal)
+        btnSquare.setImage(#imageLiteral(resourceName: "Square"), for: .normal)
         btnFreeStyle.setImage(#imageLiteral(resourceName: "FreeStyle"), for: .normal)
         btnEllipse.tintColor = UIColor(cgColor: defaultColor)
         
@@ -107,6 +111,10 @@ class ViewController: UIViewController {
             shape = DrawShape.Ellipse
         case DrawShape.Rectangle.rawValue:
             shape = .Rectangle
+        case DrawShape.Circle.rawValue:
+            shape = .Circle
+        case DrawShape.Square.rawValue:
+            shape = .Square
         case DrawShape.Line.rawValue:
             shape = .Line
         case DrawShape.FreeStyle.rawValue:
@@ -141,6 +149,8 @@ class ViewController: UIViewController {
         {
             let translation = sender .translation(in: sender.view)
             let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
+            let sideLength = translation.x > translation.y ? translation.y : translation.x
+            let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
             
             switch shape! {
             case DrawShape.Ellipse:
@@ -148,6 +158,10 @@ class ViewController: UIViewController {
             case DrawShape.Rectangle:
                 layer?.path =
                     (UIBezierPath(rect: shapeInRect)).cgPath
+            case DrawShape.Circle:
+                layer?.path = (UIBezierPath(ovalIn: shapeInSquare)).cgPath
+            case DrawShape.Square:
+                layer?.path = (UIBezierPath(rect: shapeInSquare)).cgPath
             case DrawShape.Line:
                 let linePath = UIBezierPath()
                 let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
@@ -171,7 +185,7 @@ class ViewController: UIViewController {
                 //The end point of current segment of line is the start point of next segment of line
                 freeStyleLinePath.move(to: endPoint)
                 layer?.path = freeStyleLinePath.cgPath
-                
+            
             }//end switch
             //After drawing, bring UI buttons to the top layer
             //so that user input won't block buttons
@@ -188,11 +202,11 @@ class ViewController: UIViewController {
     @IBAction func deleteBtnTapped(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Warning", message: "All Drawings & Stickers will be deleted", preferredStyle: .alert)
         
-        let deleteAction = UIAlertAction(title: "Delete All", style: .default, handler: deleteAllDrawings)
+        let deleteAction = UIAlertAction(title: "Delete All", style: .destructive, handler: deleteAllDrawings)
         alertController.addAction(deleteAction)
         
-        let cancellAction = UIAlertAction(title: "Cancell", style: .default, handler: nil)
-        alertController.addAction(cancellAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
         
@@ -211,6 +225,8 @@ enum DrawShape: Int
 {
     case Ellipse = 0
     case Rectangle
+    case Circle
+    case Square
     case Line      //straight line
     case FreeStyle //exact path of user's touch
 }
