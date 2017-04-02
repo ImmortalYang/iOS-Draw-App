@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var stackShapes: UIStackView!
     @IBOutlet weak var stackColorPicks: UIStackView!
     @IBOutlet weak var stackFuncBtns: UIStackView!
+    @IBOutlet weak var lineWidthControl: UIStackView!
     
     //MARK: Methods
     override func viewDidLoad() {
@@ -45,6 +46,8 @@ class ViewController: UIViewController {
         strokeColor = defaultStrokeColor
         shape = defaultDrawShape
         lineWidth = defaultLineWidth
+        
+        lineWidthControl.isHidden = true
         
         btnEllipse.setImage(#imageLiteral(resourceName: "Ellipse"), for: .normal)
         btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
@@ -108,6 +111,14 @@ class ViewController: UIViewController {
     @IBAction func shapeChange(_ sender: UIButton) {
         //Tag value of each shape button is designed to be correspond to rawValue of each Shape in the enum
         shape = DrawShape(rawValue: sender.tag)
+        //Hide line width control if not drawing lines
+        if sender.tag == DrawShape.Line.rawValue ||
+            sender.tag == DrawShape.FreeStyle.rawValue
+        {
+            lineWidthControl.isHidden = false
+        }else{
+            lineWidthControl.isHidden = true
+        }
         //Clear tint color and border width
         for btn in stackShapes.subviews{
             btn.tintColor = UIColor.black
@@ -191,10 +202,17 @@ class ViewController: UIViewController {
             self.view.bringSubview(toFront: stackColorPicks)
             self.view.bringSubview(toFront: stackFuncBtns)
             self.view.bringSubview(toFront: stackShapes)
+            //If user is drawing line or free style then bring line control to front as well
+            if let shapeValue = shape?.rawValue
+            {
+                if shapeValue == DrawShape.Line.rawValue || shapeValue == DrawShape.FreeStyle.rawValue
+                {
+                    self.view.bringSubview(toFront: lineWidthControl)
+                }
+            }
         }
         else if sender.state == .ended{
             userIsDraggingInFreeStyleMode = false
-            
         }//end if...else
     }//end func handlePan
     
@@ -216,6 +234,7 @@ class ViewController: UIViewController {
         lineWidth = CGFloat(sender.value)
     }
     
+    //Closure for UI delete action
     private func deleteAllDrawings(action: UIAlertAction){
         userDrawLayer.removeFromSuperlayer()
         userDrawLayer = CALayer()
@@ -228,11 +247,11 @@ class ViewController: UIViewController {
 enum DrawShape: Int
 {
     case Ellipse = 0
-    case Rectangle
-    case Circle
-    case Square
-    case Line      //straight line
-    case FreeStyle //exact path of user's touch
+    case Rectangle = 1
+    case Circle = 2
+    case Square = 3
+    case Line = 4     //straight line
+    case FreeStyle = 5//exact path of user's touch
 }
 
 

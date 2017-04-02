@@ -171,13 +171,32 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ukv-oM-qnA">
-                                <rect key="frame" x="551" y="255" width="118" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="lineWidthDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="1v4-xl-2Wx"/>
-                                </connections>
-                            </slider>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PZ3-MS-Edb">
+                                <rect key="frame" x="517" y="225" width="150" height="60"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LineWidth" translatesAutoresizingMaskIntoConstraints="NO" id="Yon-dC-nXy">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Grh-OG-Poq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ukv-oM-qnA">
+                                        <rect key="frame" x="-2" y="30" width="154" height="31"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="aEr-VU-yke"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="lineWidthDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="1v4-xl-2Wx"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Ukv-oM-qnA" firstAttribute="height" secondItem="Yon-dC-nXy" secondAttribute="height" id="dVG-Pd-gr4"/>
+                                    <constraint firstAttribute="width" constant="150" id="fP1-ZG-cQ1"/>
+                                    <constraint firstItem="Ukv-oM-qnA" firstAttribute="width" secondItem="Yon-dC-nXy" secondAttribute="width" id="jyT-P0-86y"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -185,10 +204,12 @@
                             <constraint firstItem="doc-AW-8Cl" firstAttribute="leading" secondItem="GvQ-a9-eti" secondAttribute="trailing" id="17Y-7s-JWF"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="doc-AW-8Cl" secondAttribute="bottom" id="1zf-dk-xKi"/>
                             <constraint firstAttribute="trailing" secondItem="doc-AW-8Cl" secondAttribute="trailing" id="R89-3W-oNn"/>
+                            <constraint firstAttribute="trailing" secondItem="PZ3-MS-Edb" secondAttribute="trailing" id="SnY-l2-iI0"/>
                             <constraint firstItem="Xe2-4B-K48" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Vyh-ml-bj1"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GvQ-a9-eti" secondAttribute="bottom" id="WBR-YK-1fH"/>
                             <constraint firstAttribute="trailing" secondItem="Xe2-4B-K48" secondAttribute="trailing" id="aWK-Zl-wMy"/>
                             <constraint firstItem="GvQ-a9-eti" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eyT-K9-W3d"/>
+                            <constraint firstItem="doc-AW-8Cl" firstAttribute="top" secondItem="PZ3-MS-Edb" secondAttribute="bottom" constant="8" id="kBW-2D-63z"/>
                             <constraint firstItem="GvQ-a9-eti" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="raR-zN-z7g"/>
                         </constraints>
                         <connections>
@@ -203,6 +224,7 @@
                         <outlet property="btnLine" destination="wk4-YI-K8g" id="XSw-X2-EwI"/>
                         <outlet property="btnRect" destination="WnT-si-Enq" id="DHb-Q8-PyI"/>
                         <outlet property="btnSquare" destination="5ad-WI-qmQ" id="X3l-Ba-ZJn"/>
+                        <outlet property="lineWidthControl" destination="PZ3-MS-Edb" id="zLN-K1-95S"/>
                         <outlet property="stackColorPicks" destination="GvQ-a9-eti" id="sPi-zx-dgL"/>
                         <outlet property="stackFuncBtns" destination="Xe2-4B-K48" id="Zk7-Iu-8vj"/>
                         <outlet property="stackShapes" destination="doc-AW-8Cl" id="TRv-qE-9ZG"/>
@@ -215,10 +237,11 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="36" y="38.23088455772114"/>
+            <point key="canvasLocation" x="35.532233883058474" y="37.600000000000001"/>
         </scene>
     </scenes>
     <resources>
         <image name="Bin" width="16" height="16"/>
+        <image name="LineWidth" width="95" height="95"/>
     </resources>
 </document>
