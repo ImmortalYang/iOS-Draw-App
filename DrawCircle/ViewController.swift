@@ -32,7 +32,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnSquare: UIButton!
     @IBOutlet weak var btnLine: UIButton!
     @IBOutlet weak var btnFreeStyle: UIButton!
-    @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var stackShapes: UIStackView!
     @IBOutlet weak var stackColorPicks: UIStackView!
     @IBOutlet weak var stackFuncBtns: UIStackView!
@@ -228,6 +227,13 @@ class ViewController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
         
+    }
+    
+    @IBAction func UndoBtnTapped(_ sender: UIButton) {
+        if let howManyLayers = userDrawLayer.sublayers?.count
+        {
+            userDrawLayer.sublayers![howManyLayers - 1].removeFromSuperlayer()
+        }
     }
     
     @IBAction func lineWidthDidChange(_ sender: UISlider) {
