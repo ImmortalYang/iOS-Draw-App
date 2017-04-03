@@ -236,7 +236,16 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func lineWidthDidChange(_ sender: UISlider) {
+    @IBAction func saveBtnTapped(_ sender: UIButton) {
+        let img = UIImage(layer: userDrawLayer)
+        UIImageWriteToSavedPhotosAlbum(
+            img,
+            self,
+            #selector(notifyWhenWritingImageFinished(image:didFinishSavingWithError:contextInfo:)),
+            nil)
+    }
+
+    @IBAction func lineWidthDidChange(_ sender: UISlider){
         lineWidth = CGFloat(sender.value)
     }
     
@@ -247,18 +256,27 @@ class ViewController: UIViewController {
         self.view.layer.addSublayer(userDrawLayer)
     }
     
+    @objc private func notifyWhenWritingImageFinished(image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeRawPointer)
+    {
+        if error == nil{
+            let alertController = UIAlertController(title: "Success", message: "Image saved to photo album.", preferredStyle: .alert)
+        
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            present(alertController, animated: true, completion: nil)
+        }
+        else{
+            let alertController = UIAlertController(title: "Fail", message: "Failed to save the image.", preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
 }//end class ViewController
 
-//Possible shapes that users can choose from
-enum DrawShape: Int
-{
-    case Ellipse = 0
-    case Rectangle = 1
-    case Circle = 2
-    case Square = 3
-    case Line = 4     //straight line
-    case FreeStyle = 5//exact path of user's touch
-}
+
 
 
 
