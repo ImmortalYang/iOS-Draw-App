@@ -22,7 +22,9 @@ class ViewController: UIViewController {
     var shape: DrawShape?
     var lineWidth: CGFloat?
     
+    //The layer on which user will be drawing. Distinct from UI controls
     var userDrawLayer = CALayer()
+    //Set a state and path for storing free style line
     var userIsDraggingInFreeStyleMode = false
     var freeStyleLinePath = UIBezierPath()
     
@@ -97,7 +99,7 @@ class ViewController: UIViewController {
         //Set border width for current selected button
         sender.layer.borderWidth = defaultLineWidth
         
-        //Change the tint color of selected shape-pick button
+        //Change the tint color for selected shape button
         for btn in stackShapes.subviews{
             if btn.layer.borderWidth > 0{
                 btn.tintColor = UIColor(cgColor: color!)
@@ -105,7 +107,6 @@ class ViewController: UIViewController {
             }
         }
     }
-    
     
     @IBAction func shapeChange(_ sender: UIButton) {
         //Tag value of each shape button is designed to be correspond to rawValue of each Shape in the enum
@@ -138,7 +139,6 @@ class ViewController: UIViewController {
             layer?.opacity = 0.5
             layer?.strokeColor = color
             layer?.lineWidth = lineWidth!
-            //self.view.layer.addSublayer(layer!)
             userDrawLayer.addSublayer(layer!)
         }
         else if sender.state == .changed
