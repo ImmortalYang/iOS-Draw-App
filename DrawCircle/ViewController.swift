@@ -136,7 +136,6 @@ class ViewController: UIViewController {
             startPoint = sender .location(in: sender.view)
             layer = CAShapeLayer()
             layer?.fillColor = color
-            layer?.opacity = 0.5
             layer?.strokeColor = color
             layer?.lineWidth = lineWidth!
             userDrawLayer.addSublayer(layer!)

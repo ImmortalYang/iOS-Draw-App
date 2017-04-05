@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="100" height="375"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FYZ-XN-eP1">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="47"/>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
@@ -34,50 +34,59 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrJ-tI-wnG">
-                                        <rect key="frame" x="0.0" y="53.5" width="100" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="47" width="100" height="46.5"/>
                                         <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="33h-G9-EnF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SPD-2k-jJt">
-                                        <rect key="frame" x="0.0" y="107" width="100" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="93.5" width="100" height="47"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bZZ-Lt-yu9"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krf-u6-Ypv">
-                                        <rect key="frame" x="0.0" y="160.5" width="100" height="54"/>
+                                        <rect key="frame" x="0.0" y="140.5" width="100" height="47"/>
                                         <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3bh-E8-6V7"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEl-z9-XHq">
-                                        <rect key="frame" x="0.0" y="214.5" width="100" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="187.5" width="100" height="47"/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="biM-Mb-4U2"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EW7-1l-0DD">
-                                        <rect key="frame" x="0.0" y="268" width="100" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="234.5" width="100" height="46.5"/>
                                         <color key="backgroundColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Cy-cd-KeU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zvR-qN-Bdt">
-                                        <rect key="frame" x="0.0" y="321.5" width="100" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="281" width="100" height="47"/>
                                         <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lmn-Bl-aOW"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDc-94-P7y">
+                                        <rect key="frame" x="0.0" y="328" width="100" height="47"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" backgroundImage="Eraser"/>
+                                        <connections>
+                                            <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mTT-AY-prZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="cEl-z9-XHq" firstAttribute="height" secondItem="FYZ-XN-eP1" secondAttribute="height" id="4Ux-wc-D1P"/>
+                                    <constraint firstItem="hDc-94-P7y" firstAttribute="width" secondItem="FYZ-XN-eP1" secondAttribute="width" id="5jn-hS-DTC"/>
                                     <constraint firstItem="EW7-1l-0DD" firstAttribute="width" secondItem="FYZ-XN-eP1" secondAttribute="width" id="7yU-2k-o7D"/>
                                     <constraint firstItem="SPD-2k-jJt" firstAttribute="height" secondItem="FYZ-XN-eP1" secondAttribute="height" id="8hQ-2K-sgs"/>
                                     <constraint firstItem="krf-u6-Ypv" firstAttribute="width" secondItem="FYZ-XN-eP1" secondAttribute="width" id="H5X-U1-Bke"/>
@@ -86,6 +95,7 @@
                                     <constraint firstItem="FrJ-tI-wnG" firstAttribute="width" secondItem="FYZ-XN-eP1" secondAttribute="width" id="T5k-v3-23e"/>
                                     <constraint firstItem="EW7-1l-0DD" firstAttribute="height" secondItem="FYZ-XN-eP1" secondAttribute="height" id="WHr-z3-a3K"/>
                                     <constraint firstItem="zvR-qN-Bdt" firstAttribute="height" secondItem="FYZ-XN-eP1" secondAttribute="height" id="Ws2-Wu-jgq"/>
+                                    <constraint firstItem="hDc-94-P7y" firstAttribute="height" secondItem="FYZ-XN-eP1" secondAttribute="height" id="ZrC-1w-lLd"/>
                                     <constraint firstItem="SPD-2k-jJt" firstAttribute="width" secondItem="FYZ-XN-eP1" secondAttribute="width" id="o5n-NB-Vmb"/>
                                     <constraint firstAttribute="width" constant="100" id="oi0-F0-aS9"/>
                                     <constraint firstItem="FrJ-tI-wnG" firstAttribute="height" secondItem="FYZ-XN-eP1" secondAttribute="height" id="uw5-Ne-9ho"/>
@@ -256,6 +266,7 @@
     </scenes>
     <resources>
         <image name="Bin" width="16" height="16"/>
+        <image name="Eraser" width="16" height="16"/>
         <image name="LineWidth" width="95" height="95"/>
         <image name="Save" width="16" height="16"/>
         <image name="Undo" width="16" height="16"/>
