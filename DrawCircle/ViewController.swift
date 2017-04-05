@@ -15,16 +15,27 @@ class ViewController: UIViewController {
     let defaultDrawShape: DrawShape = .Ellipse
     let defaultLineWidth: CGFloat = 3.0
     let defaultPointsOnStar = 5
-
+    
+    //Hold an instance of the model class
     var drawBrain = DrawBrain()
     
-    var startPoint : CGPoint = CGPointFromString("0")
+    var startPoint : CGPoint
     var layer : CAShapeLayer?
-    var color: CGColor?
-    var strokeColor: CGColor?
-    var shape: DrawShape?
-    var lineWidth: CGFloat?
-    var pointsOnStar: Int?
+    var color: CGColor
+    var strokeColor: CGColor
+    var shape: DrawShape
+    var lineWidth: CGFloat
+    var pointsOnStar: Int
+    
+    required init?(coder aDecoder: NSCoder) {
+        startPoint = CGPointFromString("0")
+        color = defaultColor
+        strokeColor = defaultStrokeColor
+        shape = defaultDrawShape
+        lineWidth = defaultLineWidth
+        pointsOnStar = defaultPointsOnStar
+        super.init(coder: aDecoder)
+    }
     
     //The layer on which user will be drawing. Distinct from UI controls
     var userDrawLayer = CALayer()
@@ -47,11 +58,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        color = defaultColor
-        strokeColor = defaultStrokeColor
-        shape = defaultDrawShape
-        lineWidth = defaultLineWidth
-        pointsOnStar = defaultPointsOnStar
         
         lineWidthControl.isHidden = true
         pointsOnStarControl.isHidden = true
@@ -98,7 +104,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func colorChange(_ sender: UIButton) {
-        color = sender.backgroundColor?.cgColor
+        color = (sender.backgroundColor?.cgColor) ?? defaultColor
         //Clear border width
         for btn in stackColorPicks.subviews{
             btn.layer.borderWidth = 0
@@ -109,7 +115,7 @@ class ViewController: UIViewController {
         //Change the tint color for selected shape button
         for btn in stackShapes.subviews{
             if btn.layer.borderWidth > 0{
-                btn.tintColor = UIColor(cgColor: color!)
+                btn.tintColor = UIColor(cgColor: color)
                 break
             }
         }
@@ -117,7 +123,7 @@ class ViewController: UIViewController {
     
     @IBAction func shapeChange(_ sender: UIButton) {
         //Tag value of each shape button is designed to be correspond to rawValue of each Shape in the enum
-        shape = DrawShape(rawValue: sender.tag)
+        shape = DrawShape(rawValue: sender.tag) ?? DrawShape.Ellipse
         //Hide line width control if not drawing lines
         if sender.tag == DrawShape.Line.rawValue ||
             sender.tag == DrawShape.FreeStyle.rawValue
@@ -138,7 +144,7 @@ class ViewController: UIViewController {
             btn.layer.borderWidth = 0.0
         }
         //Set tint color and border for selected shape button
-        sender.tintColor = UIColor(cgColor: color!)
+        sender.tintColor = UIColor(cgColor: color)
         sender.layer.borderWidth = defaultLineWidth
     }
     
@@ -146,22 +152,22 @@ class ViewController: UIViewController {
     {
         if sender.state == .began
         {
-            startPoint = sender .location(in: sender.view)
+            startPoint = sender.location(in: sender.view)
             layer = CAShapeLayer()
             layer?.fillColor = color
             layer?.strokeColor = color
-            layer?.lineWidth = lineWidth!
+            layer?.lineWidth = lineWidth
             userDrawLayer.addSublayer(layer!)
         }
         else if sender.state == .changed
         {
             let translation = sender .translation(in: sender.view)
             
-            switch shape! {
+            switch shape {
             case DrawShape.Ellipse, DrawShape.Rectangle:
                 //The CGRect in which ellipses and rectangles will be drawn
                 let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
-                switch shape! {
+                switch shape {
                 case DrawShape.Ellipse:
                     layer?.path = drawBrain.ellipsePath(in: shapeInRect)
                 default:  //DrawShape.Rectangle
@@ -173,39 +179,35 @@ class ViewController: UIViewController {
                 let x = abs(translation.x), y = abs(translation.y)
                 let sideLength = x > y ? translation.y : translation.x
                 let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
-                switch shape! {
+                switch shape {
                 case DrawShape.Circle:
                     layer?.path = drawBrain.ellipsePath(in: shapeInSquare)
                 case DrawShape.Square:
                     layer?.path = drawBrain.rectanglePath(in: shapeInSquare)
                 default: //DrawShape.Star
-                    layer?.path = drawBrain.starPath(in: shapeInSquare, points: pointsOnStar!)
+                    layer?.path = drawBrain.starPath(in: shapeInSquare, points: pointsOnStar)
+                    //bring star control to front
+                    self.view.bringSubview(toFront: pointsOnStarControl)
                 }
 
             case DrawShape.Line, DrawShape.FreeStyle:
                 let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
-                switch shape! {
+                switch shape {
                 case DrawShape.Line:
                     layer?.path = drawBrain.straightLinePath(from: startPoint, to: endPoint)
                     
                 default: //DrawShape.FreeStyle
                     layer?.path = drawBrain.freeStyleLinePath(from: startPoint, to: endPoint)
                 }//end inner switch
-            
+                //bring line width control to front
+                self.view.bringSubview(toFront: lineWidthControl)
             }//end switch
             //After drawing, bring UI buttons to the top layer
             //so that user input won't block buttons
             self.view.bringSubview(toFront: stackColorPicks)
             self.view.bringSubview(toFront: stackFuncBtns)
             self.view.bringSubview(toFront: stackShapes)
-            //If user is drawing line or free style then bring line control to front as well
-            if let shapeValue = shape?.rawValue
-            {
-                if shapeValue == DrawShape.Line.rawValue || shapeValue == DrawShape.FreeStyle.rawValue
-                {
-                    self.view.bringSubview(toFront: lineWidthControl)
-                }
-            }
+
         }
         else if sender.state == .ended{
             drawBrain.reset()
@@ -248,7 +250,7 @@ class ViewController: UIViewController {
     
     @IBAction func pointsOnStarDidChange(_ sender: UIStepper) {
         pointsOnStar = Int(sender.value)
-        lblPointsOnStar.text = "Points: \(pointsOnStar!)"
+        lblPointsOnStar.text = "Points: \(pointsOnStar)"
     }
     
     //Closure for UI delete action

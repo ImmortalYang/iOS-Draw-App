@@ -180,30 +180,30 @@
                                     <constraint firstItem="Kzx-TV-wZj" firstAttribute="width" secondItem="huz-OD-dka" secondAttribute="width" id="ove-YC-Jsi"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xe2-4B-K48">
-                                <rect key="frame" x="651" y="20" width="16" height="60"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xe2-4B-K48">
+                                <rect key="frame" x="609" y="20" width="58" height="18"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzb-3I-Zx0">
-                                        <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
-                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" backgroundImage="Bin"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VN6-BM-Y4H">
+                                        <rect key="frame" x="0.0" y="0.0" width="16" height="18"/>
+                                        <state key="normal" backgroundImage="Save"/>
                                         <connections>
-                                            <action selector="deleteBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kWh-gT-vON"/>
+                                            <action selector="saveBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z2k-jh-CKe"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgV-JB-kyO">
-                                        <rect key="frame" x="0.0" y="21" width="16" height="16"/>
+                                        <rect key="frame" x="21" y="0.0" width="16" height="18"/>
                                         <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" backgroundImage="Undo"/>
                                         <connections>
                                             <action selector="UndoBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xDT-Qb-Bgt"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VN6-BM-Y4H">
-                                        <rect key="frame" x="0.0" y="42" width="16" height="18"/>
-                                        <state key="normal" backgroundImage="Save"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vzb-3I-Zx0">
+                                        <rect key="frame" x="42" y="0.0" width="16" height="18"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" backgroundImage="Bin"/>
                                         <connections>
-                                            <action selector="saveBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z2k-jh-CKe"/>
+                                            <action selector="deleteBtnTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kWh-gT-vON"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -241,6 +241,8 @@
                                     </label>
                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="2" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="ESR-CI-SJ6">
                                         <rect key="frame" x="0.0" y="20.5" width="94" height="29"/>
+                                        <color key="backgroundColor" white="0.90457589289999996" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="pointsOnStarDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ayl-lc-u68"/>
                                         </connections>

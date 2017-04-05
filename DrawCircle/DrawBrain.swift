@@ -65,7 +65,10 @@ class DrawBrain{
         return _freeStyleLinePath.cgPath
     }
     
-    //Generate a path of star given the restrict rectangle and points on star
+    //Generate a path of star given the restrict rectangle, points on star, extrusion and rotation.
+    //points: how many points the star has
+    //extrusion: length from center to extrude point
+    //rotation: rotation angle
     public func starPath(in rect: CGRect, points: Int, extrusion: CGFloat? = nil, rotation: CGFloat? = nil) -> CGPath {
         let path = UIBezierPath()
         
