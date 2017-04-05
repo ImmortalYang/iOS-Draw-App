@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     let defaultStrokeColor = UIColor.black.cgColor
     let defaultDrawShape: DrawShape = .Ellipse
     let defaultLineWidth: CGFloat = 3.0
+    let defaultPointsOnStar = 5
 
     var startPoint : CGPoint = CGPointFromString("0")
     var layer : CAShapeLayer?
@@ -21,6 +22,7 @@ class ViewController: UIViewController {
     var strokeColor: CGColor?
     var shape: DrawShape?
     var lineWidth: CGFloat?
+    var pointsOnStar: Int?
     
     //The layer on which user will be drawing. Distinct from UI controls
     var userDrawLayer = CALayer()
@@ -32,6 +34,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var btnRect: UIButton!
     @IBOutlet weak var btnCircle: UIButton!
     @IBOutlet weak var btnSquare: UIButton!
+    @IBOutlet weak var btnStar: UIButton!
     @IBOutlet weak var btnLine: UIButton!
     @IBOutlet weak var btnFreeStyle: UIButton!
     @IBOutlet weak var stackShapes: UIStackView!
@@ -47,6 +50,7 @@ class ViewController: UIViewController {
         strokeColor = defaultStrokeColor
         shape = defaultDrawShape
         lineWidth = defaultLineWidth
+        pointsOnStar = defaultPointsOnStar
         
         lineWidthControl.isHidden = true
         
@@ -55,6 +59,7 @@ class ViewController: UIViewController {
         btnLine.setImage(#imageLiteral(resourceName: "Line"), for: .normal)
         btnCircle.setImage(#imageLiteral(resourceName: "Circle"), for: .normal)
         btnSquare.setImage(#imageLiteral(resourceName: "Square"), for: .normal)
+        btnStar.setImage(#imageLiteral(resourceName: "Star"), for: .normal)
         btnFreeStyle.setImage(#imageLiteral(resourceName: "FreeStyle"), for: .normal)
         btnEllipse.tintColor = UIColor(cgColor: defaultColor)
         
@@ -156,16 +161,18 @@ class ViewController: UIViewController {
                         (UIBezierPath(rect: shapeInRect)).cgPath
                 }
             
-            case DrawShape.Circle, DrawShape.Square:
-                //The CGRect in which Circles and Squares will be drawn. The side length of which is the shortest side of the above shapeInRect CGRect in the previous case.
+            case DrawShape.Circle, DrawShape.Square, DrawShape.Star:
+                //The CGRect in which Circles, Squares and Stars will be drawn. The side length of which is the shortest side of the above shapeInRect CGRect in the previous case.
                 let x = abs(translation.x), y = abs(translation.y)
                 let sideLength = x > y ? translation.y : translation.x
                 let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
                 switch shape! {
                 case DrawShape.Circle:
                     layer?.path = (UIBezierPath(ovalIn: shapeInSquare)).cgPath
-                default: //DrawShape.Square
+                case DrawShape.Square:
                     layer?.path = (UIBezierPath(rect: shapeInSquare)).cgPath
+                default: //DrawShape.Star
+                    layer?.path = starPathInRect(rect: shapeInSquare, points: pointsOnStar!).cgPath
                 }
 
             case DrawShape.Line, DrawShape.FreeStyle:
