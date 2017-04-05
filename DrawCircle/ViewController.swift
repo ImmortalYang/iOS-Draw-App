@@ -9,36 +9,54 @@
 import UIKit
 
 class ViewController: UIViewController {
-    //MARK: Properties
-    let defaultColor: CGColor = UIColor.blue.cgColor //default fill color
-    let defaultStrokeColor = UIColor.black.cgColor
-    let defaultDrawShape: DrawShape = .Ellipse
-    let defaultLineWidth: CGFloat = 3.0
-    let defaultPointsOnStar = 5
+    //MARK: Properties and fields
+    public let defaultColor: CGColor = UIColor.blue.cgColor //default fill color
+    public let defaultStrokeColor = UIColor.black.cgColor
+    public let defaultDrawShape: DrawShape = .Ellipse
+    public let defaultLineWidth: CGFloat = 3.0
+    public let defaultPointsOnStar = 5
     
     //Hold an instance of the model class
-    var drawBrain = DrawBrain()
+    private var drawEngine = DrawEngine()
     
-    var startPoint : CGPoint
-    var layer : CAShapeLayer?
-    var color: CGColor
-    var strokeColor: CGColor
-    var shape: DrawShape
-    var lineWidth: CGFloat
-    var pointsOnStar: Int
-    
-    required init?(coder aDecoder: NSCoder) {
-        startPoint = CGPointFromString("0")
-        color = defaultColor
-        strokeColor = defaultStrokeColor
-        shape = defaultDrawShape
-        lineWidth = defaultLineWidth
-        pointsOnStar = defaultPointsOnStar
-        super.init(coder: aDecoder)
+    private var startPoint : CGPoint
+    private var layer : CAShapeLayer?
+    private var color: CGColor //fill color
+    private var strokeColor: CGColor
+    private var shape: DrawShape
+    private var lineWidth: CGFloat
+    //properties and fields to control star drawing
+    private var _pointsOnStar: Int
+    public var pointsOnStar: Int{
+        get{
+            return _pointsOnStar
+        }
+        set{
+            _pointsOnStar = newValue
+            lblPointsOnStar.text = "Points: \(newValue)"
+        }
+    }
+    private var _extrusionOfStar: CGFloat?
+    private var _rotationOfStarInRadians: CGFloat?
+    public var rotationOfStarInDegree: CGFloat?{
+        get{
+            if let rotationInRadians = _rotationOfStarInRadians{
+                return rotationInRadians * CGFloat(180 / M_PI)
+            }else{
+                return nil
+            }
+        }
+        set{
+            if let rotationInDegree = newValue{
+                _rotationOfStarInRadians = rotationInDegree * CGFloat(M_PI / 180)
+            }else{
+                _rotationOfStarInRadians = nil
+            }
+        }
     }
     
     //The layer on which user will be drawing. Distinct from UI controls
-    var userDrawLayer = CALayer()
+    private var userDrawLayer = CALayer()
     
     @IBOutlet weak var btnEllipse: UIButton!
     @IBOutlet weak var btnRect: UIButton!
@@ -55,6 +73,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblPointsOnStar: UILabel!
     
     //MARK: Methods
+    required init?(coder aDecoder: NSCoder) {
+        startPoint = CGPointFromString("0")
+        color = defaultColor
+        strokeColor = defaultStrokeColor
+        shape = defaultDrawShape
+        lineWidth = defaultLineWidth
+        _pointsOnStar = defaultPointsOnStar
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -169,9 +197,9 @@ class ViewController: UIViewController {
                 let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
                 switch shape {
                 case DrawShape.Ellipse:
-                    layer?.path = drawBrain.ellipsePath(in: shapeInRect)
+                    layer?.path = drawEngine.ellipsePath(in: shapeInRect)
                 default:  //DrawShape.Rectangle
-                    layer?.path = drawBrain.rectanglePath(in: shapeInRect)
+                    layer?.path = drawEngine.rectanglePath(in: shapeInRect)
                 }
             
             case DrawShape.Circle, DrawShape.Square, DrawShape.Star:
@@ -181,11 +209,11 @@ class ViewController: UIViewController {
                 let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
                 switch shape {
                 case DrawShape.Circle:
-                    layer?.path = drawBrain.ellipsePath(in: shapeInSquare)
+                    layer?.path = drawEngine.ellipsePath(in: shapeInSquare)
                 case DrawShape.Square:
-                    layer?.path = drawBrain.rectanglePath(in: shapeInSquare)
+                    layer?.path = drawEngine.rectanglePath(in: shapeInSquare)
                 default: //DrawShape.Star
-                    layer?.path = drawBrain.starPath(in: shapeInSquare, points: pointsOnStar)
+                    layer?.path = drawEngine.starPath(in: shapeInSquare, points: pointsOnStar, extrusion: _extrusionOfStar, rotation: _rotationOfStarInRadians)
                     //bring star control to front
                     self.view.bringSubview(toFront: pointsOnStarControl)
                 }
@@ -194,10 +222,10 @@ class ViewController: UIViewController {
                 let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
                 switch shape {
                 case DrawShape.Line:
-                    layer?.path = drawBrain.straightLinePath(from: startPoint, to: endPoint)
+                    layer?.path = drawEngine.straightLinePath(from: startPoint, to: endPoint)
                     
                 default: //DrawShape.FreeStyle
-                    layer?.path = drawBrain.freeStyleLinePath(from: startPoint, to: endPoint)
+                    layer?.path = drawEngine.freeStyleLinePath(from: startPoint, to: endPoint)
                 }//end inner switch
                 //bring line width control to front
                 self.view.bringSubview(toFront: lineWidthControl)
@@ -210,7 +238,7 @@ class ViewController: UIViewController {
 
         }
         else if sender.state == .ended{
-            drawBrain.reset()
+            drawEngine.reset()
         }//end if...else
     }//end func handlePan
     
@@ -244,13 +272,18 @@ class ViewController: UIViewController {
             nil)
     }
 
+    @IBAction func settingBtnTapped(_ sender: UIButton){
+        
+    }
+    
+    //User changed the line width
     @IBAction func lineWidthDidChange(_ sender: UISlider){
         lineWidth = CGFloat(sender.value)
     }
     
+    //User changed points on star
     @IBAction func pointsOnStarDidChange(_ sender: UIStepper) {
         pointsOnStar = Int(sender.value)
-        lblPointsOnStar.text = "Points: \(pointsOnStar)"
     }
     
     //Closure for UI delete action
@@ -260,6 +293,8 @@ class ViewController: UIViewController {
         self.view.layer.addSublayer(userDrawLayer)
     }
     
+    //Give notification when saving image is finished.
+    //This func is called by selector
     @objc private func notifyWhenWritingImageFinished(image: UIImage, didFinishSavingWithError error: NSError!, contextInfo: UnsafeRawPointer)
     {
         if error == nil{

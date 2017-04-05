@@ -21,7 +21,7 @@ enum DrawShape: Int
     case FreeStyle = 6//exact path of user's touch
 }
 
-class DrawBrain{
+class DrawEngine{
     //Set a state and path for storing free style line
     private var _userIsDraggingInFreeStyleMode = false
     private var _freeStyleLinePath = UIBezierPath()
