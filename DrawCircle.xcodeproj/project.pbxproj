@@ -14,7 +14,7 @@
 		FE548F7B1E79F11400AA3326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE548F791E79F11400AA3326 /* LaunchScreen.storyboard */; };
 		FE548F861E79F11400AA3326 /* DrawCircleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F851E79F11400AA3326 /* DrawCircleTests.swift */; };
 		FE548F911E79F11400AA3326 /* DrawCircleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F901E79F11400AA3326 /* DrawCircleUITests.swift */; };
-		FEF6CBDD1E919AFA00223AB5 /* DrawData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6CBDC1E919AFA00223AB5 /* DrawData.swift */; };
+		FEF6CBDD1E919AFA00223AB5 /* DrawBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6CBDC1E919AFA00223AB5 /* DrawBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		FE548F8C1E79F11400AA3326 /* DrawCircleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawCircleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE548F901E79F11400AA3326 /* DrawCircleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawCircleUITests.swift; sourceTree = "<group>"; };
 		FE548F921E79F11400AA3326 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FEF6CBDC1E919AFA00223AB5 /* DrawData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawData.swift; sourceTree = "<group>"; };
+		FEF6CBDC1E919AFA00223AB5 /* DrawBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 				FE548F741E79F11400AA3326 /* Main.storyboard */,
 				FE548F791E79F11400AA3326 /* LaunchScreen.storyboard */,
 				FE548F7C1E79F11400AA3326 /* Info.plist */,
-				FEF6CBDC1E919AFA00223AB5 /* DrawData.swift */,
+				FEF6CBDC1E919AFA00223AB5 /* DrawBrain.swift */,
 			);
 			path = DrawCircle;
 			sourceTree = "<group>";
@@ -266,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE548F731E79F11400AA3326 /* ViewController.swift in Sources */,
-				FEF6CBDD1E919AFA00223AB5 /* DrawData.swift in Sources */,
+				FEF6CBDD1E919AFA00223AB5 /* DrawBrain.swift in Sources */,
 				FE548F711E79F11400AA3326 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

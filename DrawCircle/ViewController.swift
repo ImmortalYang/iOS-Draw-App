@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     let defaultLineWidth: CGFloat = 3.0
     let defaultPointsOnStar = 5
 
+    var drawBrain = DrawBrain()
+    
     var startPoint : CGPoint = CGPointFromString("0")
     var layer : CAShapeLayer?
     var color: CGColor?
@@ -26,9 +28,6 @@ class ViewController: UIViewController {
     
     //The layer on which user will be drawing. Distinct from UI controls
     var userDrawLayer = CALayer()
-    //Set a state and path for storing free style line
-    var userIsDraggingInFreeStyleMode = false
-    var freeStyleLinePath = UIBezierPath()
     
     @IBOutlet weak var btnEllipse: UIButton!
     @IBOutlet weak var btnRect: UIButton!
@@ -164,10 +163,9 @@ class ViewController: UIViewController {
                 let shapeInRect: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: translation.x, height: translation.y)
                 switch shape! {
                 case DrawShape.Ellipse:
-                    layer?.path = (UIBezierPath(ovalIn:shapeInRect)).cgPath
+                    layer?.path = drawBrain.ellipsePath(in: shapeInRect)
                 default:  //DrawShape.Rectangle
-                    layer?.path =
-                        (UIBezierPath(rect: shapeInRect)).cgPath
+                    layer?.path = drawBrain.rectanglePath(in: shapeInRect)
                 }
             
             case DrawShape.Circle, DrawShape.Square, DrawShape.Star:
@@ -177,37 +175,21 @@ class ViewController: UIViewController {
                 let shapeInSquare: CGRect = CGRect(x: startPoint.x, y: startPoint.y, width: sideLength, height: sideLength)
                 switch shape! {
                 case DrawShape.Circle:
-                    layer?.path = (UIBezierPath(ovalIn: shapeInSquare)).cgPath
+                    layer?.path = drawBrain.ellipsePath(in: shapeInSquare)
                 case DrawShape.Square:
-                    layer?.path = (UIBezierPath(rect: shapeInSquare)).cgPath
+                    layer?.path = drawBrain.rectanglePath(in: shapeInSquare)
                 default: //DrawShape.Star
-                    layer?.path = starPathInRect(rect: shapeInSquare, points: pointsOnStar!).cgPath
+                    layer?.path = drawBrain.starPath(in: shapeInSquare, points: pointsOnStar!)
                 }
 
             case DrawShape.Line, DrawShape.FreeStyle:
                 let endPoint: CGPoint = CGPoint(x: startPoint.x + translation.x, y: startPoint.y + translation.y)
                 switch shape! {
                 case DrawShape.Line:
-                    let linePath = UIBezierPath()
-                    linePath.move(to: startPoint)
-                    linePath.addLine(to: endPoint)
-                    layer?.path = linePath.cgPath
+                    layer?.path = drawBrain.straightLinePath(from: startPoint, to: endPoint)
                     
                 default: //DrawShape.FreeStyle
-                    if !userIsDraggingInFreeStyleMode{
-                        //Add the first line in free style path
-                        freeStyleLinePath = UIBezierPath()
-                        freeStyleLinePath.move(to: startPoint)
-                        freeStyleLinePath.addLine(to: endPoint)
-                        userIsDraggingInFreeStyleMode = true
-                    }
-                    else{
-                        freeStyleLinePath.addLine(to: endPoint)
-                    }
-                    //The end point of current segment of line is the start point of next segment of line
-                    freeStyleLinePath.move(to: endPoint)
-                    layer?.path = freeStyleLinePath.cgPath
-                    //end case DrawShape.FreeStyle
+                    layer?.path = drawBrain.freeStyleLinePath(from: startPoint, to: endPoint)
                 }//end inner switch
             
             }//end switch
@@ -226,7 +208,7 @@ class ViewController: UIViewController {
             }
         }
         else if sender.state == .ended{
-            userIsDraggingInFreeStyleMode = false
+            drawBrain.reset()
         }//end if...else
     }//end func handlePan
     
