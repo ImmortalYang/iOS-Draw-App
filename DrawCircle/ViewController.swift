@@ -35,7 +35,7 @@ class ViewController: UIViewController {
             _pointsOnStar = newValue
             lblPointsOnStar.text = "Points: \(newValue)"
         }
-    }
+    }//end property pointsOnStar
     private var _extrusionOfStar: CGFloat?
     private var _rotationOfStarInRadians: CGFloat?
     public var rotationOfStarInDegree: CGFloat?{
@@ -45,15 +45,15 @@ class ViewController: UIViewController {
             }else{
                 return nil
             }
-        }
+        }//end get
         set{
             if let rotationInDegree = newValue{
                 _rotationOfStarInRadians = rotationInDegree * CGFloat(M_PI / 180)
             }else{
                 _rotationOfStarInRadians = nil
             }
-        }
-    }
+        }//end set
+    }//end property rotationOfStarInDegree
     
     //The layer on which user will be drawing. Distinct from UI controls
     private var userDrawLayer = CALayer()
@@ -86,10 +86,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        //hide line width control and points control initially
         lineWidthControl.isHidden = true
         pointsOnStarControl.isHidden = true
-        
+        //Set image icons for shape buttons
         btnEllipse.setImage(#imageLiteral(resourceName: "Ellipse"), for: .normal)
         btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
         btnLine.setImage(#imageLiteral(resourceName: "Line"), for: .normal)
@@ -131,6 +131,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    //User tapped one of the color buttons
+    //or user tapped the eraser button
+    //eraser treated as white color
     @IBAction func colorChange(_ sender: UIButton) {
         color = (sender.backgroundColor?.cgColor) ?? defaultColor
         //Clear border width
@@ -149,6 +152,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //User tapped on of the shape buttons
     @IBAction func shapeChange(_ sender: UIButton) {
         //Tag value of each shape button is designed to be correspond to rawValue of each Shape in the enum
         shape = DrawShape(rawValue: sender.tag) ?? DrawShape.Ellipse
@@ -176,6 +180,7 @@ class ViewController: UIViewController {
         sender.layer.borderWidth = defaultLineWidth
     }
     
+    //Pan gesture recognizer action
     @IBAction func handlePan(_ sender: UIPanGestureRecognizer)
     {
         if sender.state == .began
@@ -239,7 +244,7 @@ class ViewController: UIViewController {
         }
         else if sender.state == .ended{
             drawEngine.reset()
-        }//end if...else
+        }//end if...else if...else if
     }//end func handlePan
     
     //User touch the delete button
@@ -256,6 +261,7 @@ class ViewController: UIViewController {
         
     }
     
+    //User touch the Undo button
     @IBAction func UndoBtnTapped(_ sender: UIButton) {
         if let howManyLayers = userDrawLayer.sublayers?.count
         {
@@ -263,6 +269,7 @@ class ViewController: UIViewController {
         }
     }
     
+    //User touch the Save to album button
     @IBAction func saveBtnTapped(_ sender: UIButton) {
         let img = UIImage(layer: userDrawLayer)
         UIImageWriteToSavedPhotosAlbum(
@@ -272,6 +279,7 @@ class ViewController: UIViewController {
             nil)
     }
 
+    //User touch the Settings button
     @IBAction func settingBtnTapped(_ sender: UIButton){
         
     }
