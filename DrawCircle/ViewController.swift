@@ -41,6 +41,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var stackColorPicks: UIStackView!
     @IBOutlet weak var stackFuncBtns: UIStackView!
     @IBOutlet weak var lineWidthControl: UIStackView!
+    @IBOutlet weak var pointsOnStarControl: UIStackView!
+    @IBOutlet weak var lblPointsOnStar: UILabel!
     
     //MARK: Methods
     override func viewDidLoad() {
@@ -53,6 +55,7 @@ class ViewController: UIViewController {
         pointsOnStar = defaultPointsOnStar
         
         lineWidthControl.isHidden = true
+        pointsOnStarControl.isHidden = true
         
         btnEllipse.setImage(#imageLiteral(resourceName: "Ellipse"), for: .normal)
         btnRect.setImage(#imageLiteral(resourceName: "Rectangle"), for: .normal)
@@ -123,6 +126,12 @@ class ViewController: UIViewController {
             lineWidthControl.isHidden = false
         }else{
             lineWidthControl.isHidden = true
+        }
+        //Hide points of star control if not drawing stars
+        if sender.tag == DrawShape.Star.rawValue{
+            pointsOnStarControl.isHidden = false
+        }else{
+            pointsOnStarControl.isHidden = true
         }
         //Clear tint color and border width
         for btn in stackShapes.subviews{
@@ -253,6 +262,11 @@ class ViewController: UIViewController {
 
     @IBAction func lineWidthDidChange(_ sender: UISlider){
         lineWidth = CGFloat(sender.value)
+    }
+    
+    @IBAction func pointsOnStarDidChange(_ sender: UIStepper) {
+        pointsOnStar = Int(sender.value)
+        lblPointsOnStar.text = "Points: \(pointsOnStar!)"
     }
     
     //Closure for UI delete action

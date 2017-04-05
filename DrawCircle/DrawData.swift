@@ -25,24 +25,25 @@ enum DrawShape: Int
 public func starPathInRect(rect: CGRect, points: Int) -> UIBezierPath {
     let path = UIBezierPath()
     
+    //Extrusion should always be positive so call rect.width instead of rect.size.width
+    //Let extrusion be half of the radius (width/2.0/2.0)
     let starExtrusion:CGFloat = rect.width / 4.0
     
-    let center = CGPoint(x: rect.origin.x + rect.width/2.0, y: rect.origin.y + rect.height/2.0)
+    //Must call rect.size.width instead of rect.width to get a signed value
+    let center = CGPoint(x: rect.origin.x + rect.size.width/2.0, y: rect.origin.y + rect.size.height/2.0)
     
+    //start from -180 degree
     var angle:CGFloat = -CGFloat(M_PI / 2.0)
     let angleIncrement = CGFloat(M_PI * 2.0 / Double(points))
     let radius = rect.width / 2.0
     
-    var firstPoint = true
-    
-    for _ in 1...points {
+    for index in 1...points {
         
         let point = pointFrom(angle: angle, radius: radius, center: center)
         let nextPoint = pointFrom(angle: angle + angleIncrement, radius: radius, center: center)
         let midPoint = pointFrom(angle: angle + angleIncrement / 2.0, radius: starExtrusion, center: center)
         
-        if firstPoint {
-            firstPoint = false
+        if index == 1 {
             path.move(to: point)
         }
         
