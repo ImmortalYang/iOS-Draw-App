@@ -2,10 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "Rectangle copy 2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Rectangle copy.png",
       "scale" : "2x"
     },
     {

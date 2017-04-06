@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     
     //Hold an instance of the model class
     private var drawEngine = DrawEngine()
+    private var currentColorButton: UIButton?
     
     private var startPoint : CGPoint
     private var layer : CAShapeLayer?
@@ -71,6 +72,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lineWidthControl: UIStackView!
     @IBOutlet weak var pointsOnStarControl: UIStackView!
     @IBOutlet weak var lblPointsOnStar: UILabel!
+    @IBOutlet weak var defaultColorButton: UIButton!
     
     //MARK: Methods
     required init?(coder aDecoder: NSCoder) {
@@ -119,8 +121,9 @@ class ViewController: UIViewController {
             else{
                 btn.layer.borderWidth = 0.0
             }
-            
         }
+        currentColorButton = defaultColorButton
+        currentColorButton!.setImage(#imageLiteral(resourceName: "Palette"), for: .normal)
         
         self.view.layer.addSublayer(userDrawLayer)
         
@@ -136,12 +139,18 @@ class ViewController: UIViewController {
     //eraser treated as white color
     @IBAction func colorChange(_ sender: UIButton) {
         color = (sender.backgroundColor?.cgColor) ?? defaultColor
+        currentColorButton?.setImage(nil, for: .normal)
         //Clear border width
         for btn in stackColorPicks.subviews{
             btn.layer.borderWidth = 0
         }
         //Set border width for current selected button
         sender.layer.borderWidth = defaultLineWidth
+        //If sender is not eraser then set palette image
+        if sender.image(for: .normal) == nil{
+            currentColorButton = sender
+            currentColorButton!.setImage(#imageLiteral(resourceName: "Palette"), for: .normal)
+        }
         
         //Change the tint color for selected shape button
         for btn in stackShapes.subviews{
@@ -294,7 +303,7 @@ class ViewController: UIViewController {
         pointsOnStar = Int(sender.value)
     }
     
-    //Closure for UI delete action
+    //Delegate function for UI delete action
     private func deleteAllDrawings(action: UIAlertAction){
         userDrawLayer.removeFromSuperlayer()
         userDrawLayer = CALayer()

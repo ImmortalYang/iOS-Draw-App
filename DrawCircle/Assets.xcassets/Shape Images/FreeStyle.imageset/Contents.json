@@ -2,10 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "open_curve copy 2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "open_curve copy.png",
       "scale" : "2x"
     },
     {
