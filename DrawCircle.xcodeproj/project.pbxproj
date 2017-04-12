@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE10D6421E9DDB16009423CB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE10D6411E9DDB16009423CB /* SettingsViewController.swift */; };
 		FE374A971E8F1A1600D52B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE374A961E8F1A1600D52B9A /* Assets.xcassets */; };
 		FE548F711E79F11400AA3326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F701E79F11400AA3326 /* AppDelegate.swift */; };
 		FE548F731E79F11400AA3326 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE548F721E79F11400AA3326 /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FE10D6411E9DDB16009423CB /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FE374A961E8F1A1600D52B9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE548F6D1E79F11400AA3326 /* DrawCircle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawCircle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE548F701E79F11400AA3326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				FE548F701E79F11400AA3326 /* AppDelegate.swift */,
 				FE548F721E79F11400AA3326 /* ViewController.swift */,
 				FE548F741E79F11400AA3326 /* Main.storyboard */,
+				FE10D6411E9DDB16009423CB /* SettingsViewController.swift */,
 				FE548F791E79F11400AA3326 /* LaunchScreen.storyboard */,
 				FE548F7C1E79F11400AA3326 /* Info.plist */,
 				FEF6CBDC1E919AFA00223AB5 /* DrawEngine.swift */,
@@ -268,6 +271,7 @@
 				FE548F731E79F11400AA3326 /* ViewController.swift in Sources */,
 				FEF6CBDD1E919AFA00223AB5 /* DrawEngine.swift in Sources */,
 				FE548F711E79F11400AA3326 /* AppDelegate.swift in Sources */,
+				FE10D6421E9DDB16009423CB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

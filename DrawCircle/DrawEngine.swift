@@ -69,17 +69,17 @@ class DrawEngine{
     //points: how many points the star has
     //extrusion: length from center to extrude point
     //rotation: rotation angle
-    public func starPath(in rect: CGRect, points: Int, extrusion: CGFloat? = nil, rotation: CGFloat? = nil) -> CGPath {
+    public func starPath(in rect: CGRect, points: Int, extrusion: CGFloat, rotation: CGFloat) -> CGPath {
         let path = UIBezierPath()
         
         //Extrusion should always be positive so call rect.width instead of rect.size.width
-        let starExtrusion = extrusion ?? rect.width / 4.0
+        let starExtrusion = rect.width / 2 * extrusion
         
         //Must call rect.size.width instead of rect.width to get a signed value
         let center = CGPoint(x: rect.origin.x + rect.size.width/2.0, y: rect.origin.y + rect.size.height/2.0)
         
         //default start from -180 degree
-        var angle:CGFloat = rotation ?? -CGFloat(M_PI / 2.0)
+        var angle:CGFloat = rotation
         let angleIncrement = CGFloat(M_PI * 2.0 / Double(points))
         let radius = rect.width / 2.0
         

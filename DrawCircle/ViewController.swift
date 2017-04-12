@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     public let defaultDrawShape: DrawShape = .Ellipse
     public let defaultLineWidth: CGFloat = 3.0
     public let defaultPointsOnStar = 5
+    public let defaultRotationInDegree: CGFloat = -180.0
+    public let defaultExtrusion: CGFloat = 0.5
     
     //Hold an instance of the model class
     private var drawEngine = DrawEngine()
@@ -25,7 +27,16 @@ class ViewController: UIViewController {
     private var color: CGColor //fill color
     private var strokeColor: CGColor
     private var shape: DrawShape
-    private var lineWidth: CGFloat
+    private var _lineWidth: CGFloat
+    public var lineWidth: CGFloat{
+        get{
+            return _lineWidth
+        }
+        set{
+            _lineWidth = newValue
+            lineWidthSlider.value = Float(newValue)
+        }
+    }//end property lineWidth
     //properties and fields to control star drawing
     private var _pointsOnStar: Int
     public var pointsOnStar: Int{
@@ -35,24 +46,26 @@ class ViewController: UIViewController {
         set{
             _pointsOnStar = newValue
             lblPointsOnStar.text = "Points: \(newValue)"
+            pointsControlStepper.value = Double(newValue)
         }
     }//end property pointsOnStar
-    private var _extrusionOfStar: CGFloat?
-    private var _rotationOfStarInRadians: CGFloat?
-    public var rotationOfStarInDegree: CGFloat?{
+    private var _extrusionOfStar: CGFloat
+    public var extrusion: CGFloat{
         get{
-            if let rotationInRadians = _rotationOfStarInRadians{
-                return rotationInRadians * CGFloat(180 / M_PI)
-            }else{
-                return nil
-            }
+            return _extrusionOfStar
+        }
+        set{
+            _extrusionOfStar = newValue
+        }
+    }
+    private var _rotationOfStarInRadians: CGFloat
+    public var rotationOfStarInDegree: CGFloat{
+        get{
+            return _rotationOfStarInRadians * CGFloat(180 / M_PI)
         }//end get
         set{
-            if let rotationInDegree = newValue{
-                _rotationOfStarInRadians = rotationInDegree * CGFloat(M_PI / 180)
-            }else{
-                _rotationOfStarInRadians = nil
-            }
+            _rotationOfStarInRadians = newValue * CGFloat(M_PI / 180)
+            
         }//end set
     }//end property rotationOfStarInDegree
     
@@ -73,15 +86,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var pointsOnStarControl: UIStackView!
     @IBOutlet weak var lblPointsOnStar: UILabel!
     @IBOutlet weak var defaultColorButton: UIButton!
-    
+    @IBOutlet weak var lineWidthSlider: UISlider!
+    @IBOutlet weak var pointsControlStepper: UIStepper!
     //MARK: Methods
     required init?(coder aDecoder: NSCoder) {
         startPoint = CGPointFromString("0")
         color = defaultColor
         strokeColor = defaultStrokeColor
         shape = defaultDrawShape
-        lineWidth = defaultLineWidth
+        _lineWidth = defaultLineWidth
         _pointsOnStar = defaultPointsOnStar
+        _rotationOfStarInRadians = defaultRotationInDegree * CGFloat(M_PI / 180)
+        _extrusionOfStar = defaultExtrusion
         super.init(coder: aDecoder)
     }
     
@@ -290,7 +306,12 @@ class ViewController: UIViewController {
 
     //User touch the Settings button
     @IBAction func settingBtnTapped(_ sender: UIButton){
-        
+        let settingsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "sbPopUpID") as! SettingsViewController
+        settingsVC.mainVC = self
+        self.addChildViewController(settingsVC)
+        settingsVC.view.frame = self.view.frame
+        self.view.addSubview(settingsVC.view)
+        settingsVC.didMove(toParentViewController: self)
     }
     
     //User changed the line width
